@@ -1,0 +1,12 @@
+#!/bin/bash
+
+Lines=$(cat nameslist.txt | wc -l)
+for i in $( cat nameslist.txt ); do
+    sudo useradd -m $i
+done
+badguy=$(cat nameslist.txt | sort -R | head -1)
+echo $badguy
+sudo scp -r /var/log /home/$badguy
+sudo runuser -l $badguy -c 'while sleep 5; 
+do curl https://www.geeksforgeeks.org;
+done'
